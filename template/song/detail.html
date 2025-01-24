@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container"> 
+    <h3>{{ song.title }}</h3>
+    <p><strong>{{ song.lyrics }}</strong></p>
+    <p>By {{ song.author.name|default:"Unknown" }}</p>
+</div>
+{% endblock %}

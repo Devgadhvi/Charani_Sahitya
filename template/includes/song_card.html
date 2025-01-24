@@ -1,0 +1,5 @@
+<div class="song-card">
+    <h3>{{ song.title }}</h3>
+    <p>By {{ song.author.name|default:"Unknown" }}</p>
+    <a href="{% url 'song_detail' song.id %}">Listen</a>
+</div>

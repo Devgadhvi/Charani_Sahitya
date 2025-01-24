@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Charani Sahitya{% endblock %}</title>
+</head>
+<body>
+    <!-- Include navigation -->
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    {% include 'includes/footer.html' %}  <!-- Include footer -->
+</body>
+</html>
