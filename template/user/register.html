@@ -1,10 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Register</h2>
-    <form method="post" action="{% url 'register' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+  <body class="hold-transition register-page">
+    <div class="register-box">
+      <div class="register-logo">
+        <a href="{% url 'home' %}"><b>Charani Sahitya</b></a>
+      </div>
+    
+      <div class="card">
+        <div class="card-body register-card-body">
+    
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="card-body">
+              {{form.as_p}}
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+            <div class="social-auth-links text-center">
+            <p>Already have an account?<a href="{% url 'login' %}">Login here</a></p>
+            </div>
+          </form>
+        <!-- /.form-box -->
+      </div><!-- /.card -->
+    </div>
+  </body>
+</html>
+{% endblock content %}

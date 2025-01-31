@@ -1,25 +1,22 @@
 from django import forms
 
 class RegisterForm(forms.Form):
-    """
-    A form for user registration with validation for passwords and phone numbers.
-    """
-    username = forms.CharField(
-        max_length=100,
-        widget=forms.TextInput(attrs={"placeholder": "Enter your username"})
-    )
+    username = forms.CharField(max_length=255,widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.EmailField(
-        widget=forms.EmailInput(attrs={"placeholder": "Enter your email"})
+        label="Email",
+        max_length=254,
+        widget=forms.EmailInput(attrs={"autocomplete": "email",'class':'form-control'}),
     )
-    phone_number = forms.CharField(
-        max_length=15,
-        widget=forms.TextInput(attrs={"placeholder": "Enter your phone number"})
-    )
+    phone_number = forms.CharField(max_length=20,widget=forms.TextInput(attrs={'class':'form-control'}))
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Enter your password"})
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={'class':'form-control'}),
     )
     confirm_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Confirm your password"})
+        label="Confirm Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={'class':'form-control'}),
     )
 
     def clean(self):
@@ -31,3 +28,7 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError("Passwords do not match.")
 
         return cleaned_data
+# login form
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
