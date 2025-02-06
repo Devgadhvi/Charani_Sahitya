@@ -3,7 +3,8 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Song, Book,User
-from .forms import RegisterForm,LoginForm
+from .forms import RegisterForm,LoginForm 
+from django.db.models import Q
 
 def home(request):
     latest_songs = Song.objects.all()[:6]  # Get 6 latest songs
@@ -24,7 +25,7 @@ def register(request):
             confirm_password = form.cleaned_data['confirm_password']
             if confirm_password == password:
                 User.objects.create(username=username, email=email, phone_number=phone_number,password=make_password(password))
-                return redirect('home')
+                return redirect('login')
         else:
             print("invalid",form.errors)
     return render(request, 'user/register.html',{'form':form})
@@ -34,10 +35,11 @@ def login_auth(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
+            username_email = form.cleaned_data['username']
+            print("username",username_email)
             password = form.cleaned_data['password']
-
-            user = authenticate(request, username=username, password=password)
+            user = User.objects.get(Q(username=username_email)| Q(email=username_email))
+            user = authenticate(request, username=user.username, password=password)
 
             if user is not None:
                 login(request, user)
@@ -50,6 +52,4 @@ def login_auth(request):
 
     return render(request, 'user/login.html', {'form': form})
 
-def reset_password(request):
-    return render(request, 'user/reset_password.html')
-        
+

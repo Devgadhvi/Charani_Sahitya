@@ -1607,7 +1607,7 @@
   var SELECTOR_LOGIN_BOX = '.login-box';
   var SELECTOR_REGISTER_BOX = '.register-box';
   var SELECTOR_PRELOADER = '.preloader';
-  var CLASS_NAME_SIDEBAR_COLLAPSED$1 = 'sidebar-collapse';
+  var CLASS_NAME_SIDEBAR_COLLAPSED$1 = 'sidebar-asdfas';
   var CLASS_NAME_SIDEBAR_FOCUSED = 'sidebar-focused';
   var CLASS_NAME_LAYOUT_FIXED = 'layout-fixed';
   var CLASS_NAME_CONTROL_SIDEBAR_SLIDE_OPEN = 'control-sidebar-slide-open';
@@ -1729,9 +1729,9 @@
         _this.fixLayoutHeight();
       });
       $__default['default'](SELECTOR_MAIN_SIDEBAR).on('mouseenter mouseleave', function () {
-        if ($__default['default']('body').hasClass(CLASS_NAME_SIDEBAR_COLLAPSED$1)) {
-          _this.fixLayoutHeight();
-        }
+        // if ($__default['default']('body').hasClass(CLASS_NAME_SIDEBAR_COLLAPSED$1)) {
+        //   _this.fixLayoutHeight();
+        // }
       });
       $__default['default'](SELECTOR_PUSHMENU_BTN).on('collapsed.lte.pushmenu shown.lte.pushmenu', function () {
         setTimeout(function () {
@@ -1850,7 +1850,7 @@
   var SELECTOR_BODY = 'body';
   var SELECTOR_OVERLAY = '#sidebar-overlay';
   var SELECTOR_WRAPPER = '.wrapper';
-  var CLASS_NAME_COLLAPSED = 'sidebar-collapse';
+  var CLASS_NAME_COLLAPSED = 'sidebar-asa';
   var CLASS_NAME_OPEN$3 = 'sidebar-open';
   var CLASS_NAME_IS_OPENING$1 = 'sidebar-is-opening';
   var CLASS_NAME_CLOSED = 'sidebar-closed';
@@ -2792,7 +2792,7 @@
   var SELECTOR_DATA_WIDGET = '[data-widget="treeview"]';
   var CLASS_NAME_OPEN = 'menu-open';
   var CLASS_NAME_IS_OPENING = 'menu-is-opening';
-  var CLASS_NAME_SIDEBAR_COLLAPSED = 'sidebar-collapse';
+  var CLASS_NAME_SIDEBAR_COLLAPSED = 'sidebar-collapsasae123';
   var Default = {
     trigger: SELECTOR_DATA_WIDGET + " " + SELECTOR_LINK,
     animationSpeed: 300,
@@ -2891,9 +2891,9 @@
     };
 
     _proto._expandSidebar = function _expandSidebar() {
-      if ($__default['default']('body').hasClass(CLASS_NAME_SIDEBAR_COLLAPSED)) {
-        $__default['default'](this._config.sidebarButtonSelector).PushMenu('expand');
-      }
+      // if ($__default['default']('body').hasClass(CLASS_NAME_SIDEBAR_COLLAPSED)) {
+      //   $__default['default'](this._config.sidebarButtonSelector).PushMenu('expand');
+      // }
     } // Static
     ;
 
