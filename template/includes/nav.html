@@ -12,18 +12,41 @@
       <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Contact</a>
       </li>
-  </ul>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="feed" class="nav-link">Feed</a>
+    </li>
+
+     {% if request.user.is_special %}
+     <li class="nav-item d-none d-sm-inline-block">
+      <a href="{% url 'create' %}" class="nav-link">Create</a>
+      </li>
+      {% else %}
+      {% if request.user.is_authenticated  %}
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'ask_permissons' user.id %}" class="nav-link">Be Creator</a>
+        </li>
+        {% endif %}
+      {% endif %}
+    </ul>
 
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
       <!-- Login and Register -->
+       {% if request.user.is_authenticated  %}
+       <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+        </li>
+        {% else %}
       <li class="nav-item d-none d-sm-inline-block">
           <a href="{% url 'login' %}" class="nav-link">Login</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
           <a href="{% url 'register' %}" class="nav-link">Register</a>
       </li>
-
+      {%endif%}
       <!-- Navbar Search -->
       <li class="nav-item">
           <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -53,4 +76,4 @@
           </a>
       </li>
   </ul>
-</nav>
+</nav>  

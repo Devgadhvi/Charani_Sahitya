@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
   <!-- summernote -->
   <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css.styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     {% if request.path != "/login" and request.path !=  "/register" %}
@@ -32,6 +32,7 @@
     {% endif %}
     <main>
         {% block content %}
+        
         {% endblock %}
     </main>
     

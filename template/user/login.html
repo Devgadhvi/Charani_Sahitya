@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
 {% block content %}
 <style>
   /* Full page height */
@@ -21,23 +21,10 @@
           <h3 class="text-center">Charani Sahitya</h3>
         </div>
         <div class="card-body login-card-body">
-          <form method="post">
+          <form method="post" novalidate>
             {% csrf_token %}
-            <div class="input-group mb-3">
-                <input type="text" name="username" class="form-control" placeholder="Username" required>
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-user"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="input-group mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
-                    </div>
-                </div>
+            <div class="card-body">
+              {{form.as_p}}
             </div>
             <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>

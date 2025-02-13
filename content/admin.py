@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Author, Category, Song, Book, Story, User
+from .models import Author, Category, Song, Book, Story, User,Profile,Feed_post
 
 admin.site.register(User)
+admin.site.register(Profile)
+admin.site.register(Feed_post)
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('name', 'region', 'birth_date', 'death_date', 'created_at')

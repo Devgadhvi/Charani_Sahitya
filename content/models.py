@@ -5,9 +5,16 @@ class User(AbstractUser):
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(unique=True ,blank=True, null=True,)
     phone_number = models.CharField(max_length=10)
+    is_special = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
+    
+class Profile(models.Model):
+    name = models.CharField(max_length=100)
+    profile_picture = models.ImageField(upload_to='ProfilePicture/')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
 
 class Author(models.Model):
     name = models.CharField(max_length=200)
@@ -78,3 +85,10 @@ class Story(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Feed_post(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    
