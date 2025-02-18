@@ -1,10 +1,10 @@
-from django.shortcuts import render, get_object_or_404,redirect
+from django.shortcuts import render, get_object_or_404,redirect,HttpResponse
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login,logout
 from django.core.mail import send_mail
 from django.contrib import messages
-from .models import Song, Book,User
-from .forms import RegisterForm,LoginForm ,FeedPostForm
+from .models import Song, Book,User,Feed_post
+from .forms import RegisterForm,LoginForm ,FeedPostForm,ProfileEditForm
 from django.db.models import Q
 
 def home(request):
@@ -58,13 +58,16 @@ def user_logout(request):
     return redirect('home')
 
 def profile(request):
-    return render(request, 'user/profile.html')
+    profile = request.user.profile 
+    user_posts = Feed_post.objects.filter(profile=profile) 
+
+    return render(request, 'user/profile.html', {'profile': profile, 'feed': user_posts})
 
 def ask_permissons(request,id):
     user = get_object_or_404(User, id=id)
     send_mail(
-    "Subject here",
-    "Here is the message.",
+    f"{user.username} wants to be creator",
+    ("""click on the link to give permisson "http://127.0.0.1:8000/be_a_creator" """),
     "jaydeeptalaviya7@gmail.com",
     ["devgadhavi951@gmail.com"],
     fail_silently=False,
@@ -72,10 +75,11 @@ def ask_permissons(request,id):
     return redirect('home')
 
 def feedpage(request):
-    return render(request, 'user/feedpage.html')
+    feed = Feed_post.objects.all()
+    return render(request, 'feed/feedpage.html', {'feed': feed})
+
 def creator_form(request):
     post = FeedPostForm()
-    print(">>>>>>>>>>>",request.user.id)
     user = request.user
     if request.method == 'POST':
         post = FeedPostForm(request.POST)
@@ -84,5 +88,31 @@ def creator_form(request):
             post_new.profile_id = user.profile.id
             post_new.save()
             return redirect('create')
-    return render(request, 'user/creator_form.html',{'post':post})
+    return render(request, 'feed/creator_form.html',{'post':post})
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Feed_post, id=post_id)
+    return render(request, 'feed/post_detail.html', {'post': post})
+
+
+def edit_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            # Save the form data to user model
+            form.save()
+
+            # If profile picture is updated, save it
+            if 'profile_picture' in request.FILES:
+                user.profile.profile_picture = request.FILES['profile_picture']
+                user.profile.save()
+
+            messages.success(request, "Your profile has been updated successfully.")
+            return redirect('profile')  # Redirect to the profile page
+
+    else:
+        form = ProfileEditForm(instance=user)
+
+    return render(request, 'user/edit_profile.html', {'form': form})
 

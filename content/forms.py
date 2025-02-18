@@ -70,4 +70,19 @@ class LoginForm(forms.Form):
 class FeedPostForm(forms.ModelForm):
     class Meta:
         model = Feed_post
-        fields = ['title', 'content']
+        fields = ['title', 'content','category']
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'phone_number']
+
+    name = forms.CharField(max_length=100)
+    profile_picture = forms.ImageField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Populate fields with existing user profile data
+        self.fields['name'].initial = self.instance.profile.name
+        self.fields['phone_number'].initial = self.instance.phone_number
+        self.fields['email'].initial = self.instance.email

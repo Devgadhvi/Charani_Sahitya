@@ -54,7 +54,24 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Chhand(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    region = models.CharField(max_length=100)
+    language = models.CharField(max_length=50)
+    audio_file = models.FileField(upload_to='songs/', null=True, blank=True)
+    lyrics = models.TextField()
+    translation = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    views = models.PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return self.title
+    
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
@@ -88,6 +105,7 @@ class Story(models.Model):
     
 class Feed_post(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    category = models.OneToOneField(Category, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=200)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

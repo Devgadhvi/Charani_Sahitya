@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>{% block title %}Charani Sahitya{% endblock %}</title>
+    
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href=" https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'">
   <!-- Font Awesome -->
@@ -25,6 +26,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 </head>
 <body>
     {% if request.path != "/login" and request.path !=  "/register" %}

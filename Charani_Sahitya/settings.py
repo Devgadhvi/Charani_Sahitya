@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'content',
     'widget_tweaks',
+    'content',
+
 ]
 
 MIDDLEWARE = [
@@ -143,4 +144,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jaydeeptalaviya7@gmail.com'
 EMAIL_HOST_PASSWORD = 'qarwpratamkuxvdx'  # Use environment variables instead
+
+
+LOGIN_URL ="/login"
 

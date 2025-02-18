@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+<div class="d-flex flex-wrap">
+    {% for post in feed %}
+        <div class="card col-md-4 mb-4">
+            <div class="card-body">
+                <!-- Profile Image and User Name -->
+                <div class="d-flex align-items-center mb-2">
+                    <img src="{{ post.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle me-3" width="30" height="30">
+                    <small class="text-muted">{{ post.profile.name }}</small>
+                </div>
+
+                <!-- Title Centered -->
+                <h5 class="card-title text-center">{{ post.title }}</h5>
+                
+                <!-- Display first 50 characters of post content -->
+                <p class="card-text">{{ post.content|slice:":50" }}...</p>
+
+                <!-- Time ago formatting -->
+                <p class="text-muted text-end">
+                    <small>Posted {{ post.created_at|short_time_ago }}</small>
+                </p>
+
+                <!-- Show More Button -->
+                <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Show More</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

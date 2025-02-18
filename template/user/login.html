@@ -1,39 +1,74 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load widget_tweaks %}
+
 {% block content %}
 <style>
-  /* Full page height */
-  .login-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center horizontally & vertically */
-    width: 100%;
-    max-width: 400px; /* Limit form width */
-  }
-</style>
+  /* Custom Styles for Login Page */
+.card {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+}
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4 login-container">
-      <div class="card">
-        <div class="card-header login-card-header">
-          <h3 class="text-center">Charani Sahitya</h3>
-        </div>
-        <div class="card-body login-card-body">
-          <form method="post" novalidate>
-            {% csrf_token %}
-            <div class="card-body">
-              {{form.as_p}}
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
-        
-          <p class="mb-1">I forgot my password? <a href="{% url 'reset_password' %}"> Change Password</a></p>
-          <p class="mb-0"><a href="{% url 'register' %}" class="text-center">Create account</a></p>
-        </div>
+.card-body {
+    padding: 2rem;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 1.75rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.form-control {
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+</style>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="col-md-6 col-lg-4">
+      <!-- Login Card -->
+      <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-body">
+              <h3 class="text-center text-primary mb-4">Charani Sahitya</h3>
+              
+              <!-- Form Start -->
+              <form method="POST">
+                  {% csrf_token %}
+                  
+                  <!-- Username Field -->
+                  <div class="mb-4">
+                      <label for="id_username" class="form-label">Username</label>
+                      {% render_field form.username class="form-control shadow-sm" placeholder="Enter your username" %}
+                  </div>
+
+                  <!-- Password Field -->
+                  <div class="mb-4">
+                      <label for="id_password" class="form-label">Password</label>
+                      {% render_field form.password class="form-control shadow-sm" placeholder="Enter your password" %}
+                  </div>
+
+                  <!-- Button Section -->
+                  <button type="submit" class="btn btn-primary w-100">Login</button>
+
+                  <!-- Space between buttons -->
+                  <div class="my-3"></div>
+
+                  <!-- Sign Up Button (Full Width) -->
+                  <a href="{% url 'register' %}" class="btn btn-outline-primary w-100">Sign Up</a>
+
+              </form>
+          </div>
       </div>
-    </div>
   </div>
 </div>
 {% endblock %}
