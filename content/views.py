@@ -1,19 +1,26 @@
 from django.shortcuts import render, get_object_or_404,redirect,HttpResponse
 from django.contrib.auth.hashers import make_password
+from django.core.cache import cache
 from django.contrib.auth import authenticate, login,logout
 from django.core.mail import send_mail
 from django.contrib import messages
-from .models import Song, Book,User,Feed_post
+from .models import Song, Book,User,Feed_post,Doha
 from .forms import RegisterForm,LoginForm ,FeedPostForm,ProfileEditForm
 from django.db.models import Q
+import random
 
-def home(request):
-    latest_songs = Song.objects.all()[:6]  
-    latest_books = Book.objects.all()[:4]  
-    return render(request, 'home.html', {
-        'latest_songs': latest_songs,
-        'latest_books': latest_books
-    })
+def home(request): 
+    #   dohas = cache.get('random_dohas')
+    #   if not dohas:
+    #     all_dohas = list(Doha.objects.all())
+    #     dohas = random.sample(all_dohas, min(5, len(all_dohas))) 
+    #     cache.set('random_dohas', dohas, 24 * 60 * 60)
+        dohas = Doha.objects.all()
+        return render(request, 'home.html', {'dohas': dohas})
+
+
+def explore(request):
+    return render(request, 'explore.html')
 def register(request):
     form = RegisterForm()
     if request.method == 'POST':

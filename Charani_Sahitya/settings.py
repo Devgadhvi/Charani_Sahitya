@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users.apps.UsersConfig',
     'widget_tweaks',
     'content',
+    "users",
 
 ]
 
@@ -125,7 +127,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR/'staticfiles')
 
 MEDIA_URL = '/media/'
 
@@ -147,4 +148,19 @@ EMAIL_HOST_PASSWORD = 'qarwpratamkuxvdx'  # Use environment variables instead
 
 
 LOGIN_URL ="/login"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",  # Ensure Redis is running
+    }
+}
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'  # Use Redis as the broker
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+INSTALLED_APPS += ['django_celery_beat']
+
+
 

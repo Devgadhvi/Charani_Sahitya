@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class User(AbstractUser):
     username = models.CharField(max_length=255, unique=True)
@@ -10,10 +12,13 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
     
+    
 class Profile(models.Model):
     name = models.CharField(max_length=100)
-    profile_picture = models.ImageField(upload_to='ProfilePicture/')
+    profile_picture = models.ImageField(upload_to='ProfilePicture/',blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
 
 
 class Author(models.Model):
@@ -86,6 +91,13 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+class Doha(models.Model):
+    text = models.TextField()
+    author = models.CharField(max_length=999, blank=True, null=True)
+
+    def __str__(self):
+        return self.text[:50]  
 
 class Story(models.Model):
     title = models.CharField(max_length=200)

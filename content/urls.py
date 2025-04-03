@@ -2,11 +2,12 @@ from django.urls import path
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
-from .views import home,register,login_auth,profile,user_logout,ask_permissons,edit_profile,feedpage,creator_form,post_detail
+from .views import home,register,login_auth,profile,user_logout,ask_permissons,edit_profile,feedpage,creator_form,post_detail,explore
 
 
 urlpatterns =[
     path('', home, name='home'),
+     path('explore/',explore, name='explore'), 
     path('register/',register , name='register'),
     path('login/',login_auth, name='login'),
     path('logout/', user_logout, name='logout'),
