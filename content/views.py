@@ -16,7 +16,7 @@ def home(request):
     #     dohas = random.sample(all_dohas, min(5, len(all_dohas))) 
     #     cache.set('random_dohas', dohas, 24 * 60 * 60)
         dohas = Doha.objects.all()
-        return render(request, 'home.html', {'dohas': dohas})
+        return render(request, 'index.html', {'dohas': dohas})
 
 
 def explore(request):
